@@ -1,0 +1,139 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-family: 'Segoe UI', sans-serif;
+}
+:root{
+    --bg-color : rgba(13, 13, 13, 0.978);
+    --clock-bg : rgba(12, 12, 12, 0.997);
+    --pivot-bg : rgb(250, 247, 247);
+    --text-color : white;
+}
+.darkmode{
+    --bg-color : rgba(249, 247, 247, 0.978);
+    --clock-bg : rgba(236, 234, 234, 1);
+    --pivot-bg : rgb(9, 9, 9);
+    --text-color : black;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+.theme-switcher{
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    border: none;
+    background-color: var(--clock-bg);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.darkmode .theme-switcher svg:last-child{
+    display: none;
+}
+.darkmode .theme-switcher svg:first-child{
+    display: block;
+}
+.theme-switcher svg:first-child{
+    display: none;
+}
+.theme-switcher svg{
+    fill: var(--text-color);
+}
+.container{
+    position: relative;
+}
+.clock{
+    border: none;
+    border-radius: 50%;
+    background-color: var(--clock-bg);
+    width: 400px;
+    height: 400px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@property --angle{
+    syntax : '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+.clock::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+    background:conic-gradient(from var(--angle),red,rgb(254, 119, 1),yellow,green,rgb(0, 64, 255),rgb(246, 2, 43),purple,red);
+    backdrop-filter: blur(20px);
+    border-radius: 50%;
+    z-index: -1;
+    animation: spin 5s infinite linear;
+}
+
+@keyframes spin{
+    0%{
+        --angle : 0deg;
+    }
+    100%{
+        --angle : 360deg;
+    }
+}
+.clock span{
+    position: absolute;
+    transform: rotate(calc(30deg * var(--i)));
+    inset: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.clock span b{
+    position:absolute;
+    transform: rotate(calc(-30deg * var(--i)));
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.clock::before{
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--pivot-bg);
+    border-radius: 50%;
+    z-index: 10;
+}
+.hand{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items:flex-end;
+}
+.hand i{
+    position: absolute;
+    background-color:var(--color);
+    width: 5px;
+    height: 100px;
+    border-radius: 10px;
+    transform-origin: 50% 100%;
+}
+#hour{
+    width: 5px;
+    height: 100px;
+}
+#minute{
+    width: 5px;
+    height: 110px;
+}
+#second{
+    width: 5px;
+    height: 120px;
+}
